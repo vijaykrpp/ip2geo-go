@@ -55,7 +55,8 @@ func (c *Client) Lookup(ip string, format string, callback string) (interface{},
 	client := &http.Client{Timeout: c.Timeout}
 	resp, err := client.Get(reqURL)
 	if err != nil {
-		return nil, err
+		// TRUE transport failure
+		return nil, errors.New("unable to reach Ip2Geo API")
 	}
 	defer resp.Body.Close()
 
@@ -64,23 +65,15 @@ func (c *Client) Lookup(ip string, format string, callback string) (interface{},
 		return nil, err
 	}
 
-	// Default JSON handling
+	// JSON is default → decode but DO NOT judge
 	if format == "" || format == "json" {
 		var data map[string]interface{}
 		if err := json.Unmarshal(body, &data); err != nil {
-			return nil, err
+			return nil, errors.New("invalid JSON response from API")
 		}
-
-		if success, ok := data["success"].(bool); ok && !success {
-			if msg, ok := data["error"].(string); ok {
-				return nil, errors.New(msg)
-			}
-			return nil, errors.New("unknown API error")
-		}
-
 		return data, nil
 	}
 
-	// Non-JSON formats return raw string
+	// XML / YAML / JSONP → raw string
 	return string(body), nil
 }
