@@ -1,5 +1,9 @@
 # ip2geo — Go SDK
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/vijaykrpp/ip2geo-go.svg)](https://pkg.go.dev/github.com/vijaykrpp/ip2geo-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vijaykrpp/ip2geo-go)](https://goreportcard.com/report/github.com/vijaykrpp/ip2geo-go)
+[![License](https://img.shields.io/github/license/vijaykrpp/ip2geo-go)](LICENSE)
+
 Official Go SDK for the **Ip2Geo API** — fast IP geolocation, network intelligence, and security risk detection.
 
 ---
